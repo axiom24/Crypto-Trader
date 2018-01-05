@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Crypto Trader</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+  </head>
+  <body>
+    
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'userDetails')" id="defaultTab">User Details</button>
+      <button class="tablinks" onclick="openTab(event, 'marketOrders')">Market Orders</button>
+      <!-- <button class="tablinks" onclick="openTab(event, 'currencySettings')">Currency Settings</button>       -->
+      <button class="tablinks" onclick="openTab(event, 'keySettings')">Key Settings</button>
+      <button class="tablinks" onclick="openTab(event, 'marketHistory')">Market History</button>
+      <button class="tablinks" onclick="openTab(event, 'algorithm')">Algorithm</button>
+      
+    </div>
+
+    
+ 
+    <div class="row tabcontent" id="keySettings">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-info">
+        <div class="panel-heading">User Info</div>
+        <div class="panel-body">
+
+          <div class="row">
+          <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="bittrexKey" type="text" class="form-control" name="bittrexKey" placeholder="Bittrex API Key">
+          </div> 
+          </div>
+          <div class="col-sm-3">
+          <button type="button" class="btn btn-info" onClick="setBittrexKey()">Set Key</button>
+          </div>
+          </div>
+
+            <br>
+
+          <div class="row">
+          <div class="col-sm-9">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <input id="bittrexSecret" type="text" class="form-control" name="bittrexSecret" placeholder="Bittrex Secret Key"> 
+          </div>
+             </div>
+          <div class="col-sm-3">
+          <button type="button" class="btn btn-info" onClick="setBittrexSecret()">Set Secret</button>
+          </div>
+          </div>
+
+        </div>
+      </div>
+      
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row tabcontent" id="marketOrders">
+
+      <div class="row">
+      <div class="col-sm-1"></div>
+
+      <div class="col-sm-10">
+      <div class="panel panel-info">
+        <div class="panel-heading" id="buyPanel"> </div>
+        <div class="panel-body">
+
+        <div class="row">
+        <div class="col-sm-1"><h5>Units:</h5> </div>
+        <div class="col-sm-11">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="tradeCurrencyBuy" id="buyPanelUnits">
+            <span class="input-group-addon" id="tradeCurrencyBuy"></span>
+            </div>
+         </div>
+         </div>
+
+         <br>
+
+         <div class="row">
+         <div class="col-sm-1"><h5>Price:</h5> </div>
+        <div class="col-sm-11">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="baseCurrencyBuy" id="buyPanelPrice">
+            <span class="input-group-addon" id="baseCurrencyBuy"></span>
+            </div>
+         </div>
+         </div>
+
+         <br>
+
+         <div class="row">
+         <div class="col-sm-1"><h5>Total:</h5> </div>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="baseCurrencyBuyTotal" id="buyPanelTotal" disabled>
+            <span class="input-group-addon" id="baseCurrencyBuyTotal"></span>
+            </div>
+         </div>
+         <div class="col-sm-2">
+           <button class="btn btn-info" onClick=placeBuyOrder()>Place Buy</button>
+         </div>
+         </div>
+
+        </div>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading" id="sellPanel"> </div>
+        <div class="panel-body">
+
+        <div class="row">
+        <div class="col-sm-1"><h5>Units:</h5> </div>
+        <div class="col-sm-11">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="tradeCurrencyBuy" id="sellPanelUnits">
+            <span class="input-group-addon" id="tradeCurrencySell"></span>
+            </div>
+         </div>
+         </div>
+
+         <br>
+
+         <div class="row">
+         <div class="col-sm-1"><h5>Price:</h5> </div>
+        <div class="col-sm-11">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="baseCurrencyBuy" id="sellPanelPrice">
+            <span class="input-group-addon" id="baseCurrencySell"></span>
+            </div>
+         </div>
+         </div>
+
+         <br>
+
+         <div class="row">
+         <div class="col-sm-1"><h5>Total:</h5> </div>
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="0.0000" aria-describedby="baseCurrencyBuyTotal" id="sellPanelTotal" disabled>
+            <span class="input-group-addon" id="baseCurrencySellTotal"></span>
+            </div>
+         </div>
+         <div class="col-sm-2">
+           <button class="btn btn-info" onClick=placeSellOrder()>Place Sell</button>
+         </div>
+         </div>
+
+        </div>
+      </div>
+
+      <div class="col-sm-1"></div>
+      </div>
+      </div>
+
+      <div class='row'>
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="panel panel-info">
+        <div class="panel panel-heading">Open Orders:</div>
+        </div>
+
+
+      </div>
+      <div class="col-sm-1"></div>
+      </div>
+
+
+  </div>
+
+
+
+
+
+    <div class="row tabcontent" id="currencySettings">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-info">
+        <div class="panel-heading">Currency Settings</div>
+        <div class="panel-body">
+         
+        </div>
+      </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+    <div class="row tabcontent" id="algorithm">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-10">
+    <div class="panel panel-info">
+      <div class="panel-heading">Algorithm</div>
+      <div class="panel-body">
+          <button type="button" class="btn btn-info" onClick="setAlgorithm(true)">Run!</button>
+          <button type="button" class="btn btn-info" onClick="setAlgorithm(false)">Stop!</button>          
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-1"></div>
+  </div>
+
+
+    <div class="row tabcontent" id="marketHistory">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+      <div class="panel panel-info">
+           
+        <div class="panel-heading">Bids</div>
+        <div class="panel-body">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Total</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div id="bidTotal1"></div></td>
+                  <td><div id="bidQuan1"></div></td>
+                  <td><div id="bidRate1"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="bidTotal2"></div></td>
+                    <td><div id="bidQuan2"></div></td>
+                    <td><div id="bidRate2"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="bidTotal3"></div></td>
+                    <td><div id="bidQuan3"></div></td>
+                    <td><div id="bidRate3"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="bidTotal4"></div></td>
+                    <td><div id="bidQuan4"></div></td>
+                    <td><div id="bidRate4"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="bidTotal5"></div></td>
+                    <td><div id="bidQuan5"></div></td>
+                    <td><div id="bidRate5"></div></td>
+                </tr>
+    
+              </tbody>
+            </table>
+        </div>
+       
+      <div class="panel-heading">Asks</div>
+      <div class="panel-body">
+          <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Total</th>
+                  <th>Quantity</th>
+                  <th>Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><div id="askTotal1"></div></td>
+                  <td><div id="askQuan1"></div></td>
+                  <td><div id="askRate1"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="askTotal2"></div></td>
+                    <td><div id="askQuan2"></div></td>
+                    <td><div id="askRate2"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="askTotal3"></div></td>
+                    <td><div id="askQuan3"></div></td>
+                    <td><div id="askRate3"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="askTotal4"></div></td>
+                    <td><div id="askQuan4"></div></td>
+                    <td><div id="askRate4"></div></td>
+                </tr>
+                <tr>
+                    <td><div id="askTotal5"></div></td>
+                    <td><div id="askQuan5"></div></td>
+                    <td><div id="askRate5"></div></td>
+                </tr>
+    
+              </tbody>
+            </table>
+      </div>
+
+      </div>
+      </div>
+      <div class="col-sm-1"></div>
+    </div>
+
+
+    <div class="row tabcontent" id="userDetails">
+      <div class="col-sm-1"></div>
+      <div class="col-sm-10">
+        <div class="panel panel-info">
+
+          <div class="panel-heading">Market Info</div>
+          <div class="panel-body">
+            <div class=col-sm-6> 
+              <div id="marketName"> </div> <br>
+              <div id="high"> </div> <br>
+              <div id="low"> </div>
+            </div>
+            <div class=col-sm-6>
+              <div id="volume"> </div> <br>
+              <div id="bid"> </div> <br>
+              <div id="ask"> </div>
+            </div>
+          </div>
+
+
+          
+          <div class="panel-heading" id="base-title"></div>
+          <div class="panel-body">
+            <div class=col-sm-6> 
+
+
+              <div id="base-balance"> </div> <br>
+              <div id="base-available"> </div>
+            </div>
+            <div class=col-sm-6>
+              <div id="base-pending"> </div> <br>
+              <div id="base-address"> </div>
+            </div>
+          </div>
+         
+        <div class="panel-heading" id="trade-title"></div>
+        <div class="panel-body">
+          <div class=col-sm-6> 
+            <div id="trade-balance"> </div> <br>
+            <div id="trade-available"> </div>
+          </div>
+          <div class=col-sm-6>
+            <div id="trade-pending"> </div> <br>
+            <div id="trade-address"> </div>
+          </div>
+        </div>
+
+
+
+        </div>
+      </div>
+      <div class="col-sm-1"> </div>
+    </div>
+
+    <div class="row" id="subHeader">
+      <div class= col-sm-1></div>
+      <div class=col-sm-10 id="alerts">
+      </div>
+      <div class=col-sm-1></div>
+    </div>
+
+    <div class="row">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-5" id="baseCurrency"></div>
+    <div class="col-sm-5" id="tradeCurrency"></div>
+    <div class="col-sm-1"></div>
+    </div>
+
+  </body>
+  
+  <script src="js/bittrexAPI.js"></script>
+
+  <script src="js/index.js"></script>
+
+  <script>
+    document.getElementById("defaultTab").click();
+  </script>
+
+</html>
